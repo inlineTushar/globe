@@ -1,0 +1,76 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+android {
+    compileSdkVersion project.compile_sdk_version
+    buildToolsVersion project.build_tools_version
+
+    defaultConfig {
+        minSdkVersion project.min_sdk_version
+        targetSdkVersion project.target_sdk_version
+        versionCode project.hasProperty('versionCode') ? project.property('versionCode') as int : 1
+        versionName project.hasProperty('versionName') ? project.property('versionName') : "testRun"
+        buildConfigField("int", "VERSION_CODE", "$versionCode")
+        buildConfigField("String", "VERSION_NAME", "\"$versionName\"")
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = '11'
+        freeCompilerArgs += [
+                // Opt-in option for Koin annotation of KoinComponent --> https://github.com/InsertKoinIO/koin/issues/939
+                // Also for any OptIn requirements on experimental or deprecated APIs
+                "-Xopt-in=kotlin.RequiresOptIn"
+        ]
+    }
+
+    packagingOptions {
+        pickFirst 'META-INF/main.kotlin_module'
+        pickFirst 'META-INF/atomicfu.kotlin_module'
+        pickFirst 'META-INF/kotlinx-coroutines-core.kotlin_module'
+        exclude 'DebugProbesKt.bin'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    dependencies {
+        coreLibraryDesugaring desugar_jdk
+//        implementation platform(firebase_bom)
+
+        api kotlin_stdlib
+        api kotlin_reflect
+        api koin
+        api koin_extensions
+        api core_ktx
+//        api crashlytics
+        api timber
+        api coroutines_core
+        api coroutines_reactive
+        api coroutines_android
+        api arrow_core_data
+        api security_jetpack
+        api work_manager
+        api support_annotations
+        api moshi
+        api moshi_kotlin
+        api moshi_adapters
+        kapt(moshi_kotlin_codegen)
+
+//        api firebase_analytics
+//        api firebase_performance
+    }
+}

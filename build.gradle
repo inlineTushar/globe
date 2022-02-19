@@ -1,0 +1,21 @@
+buildscript {
+    apply from: 'buildsystem/dependencies.gradle'
+
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath build_gradle_plugin
+        classpath ktlint_plugin
+        classpath realm_plugin
+        classpath navigation_safe_args_plugin
+        classpath junit5_plugin
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -1,0 +1,74 @@
+plugins {
+    id 'com.android.application'
+}
+
+apply from: "${rootDir}/buildsystem/default-config.gradle"
+apply from: "${rootDir}/buildsystem/lint-config.gradle"
+apply from: "${rootDir}/buildsystem/test-config.gradle"
+
+android {
+    signingConfigs {
+        debugSign {
+            storeFile file("${rootDir}/keystore/debug.keystore")
+            keyAlias 'debugKey'
+            keyPassword 'android'
+            storePassword 'android'
+        }
+        releaseSign {
+            // source from /Users/user.name/gradle.properties. See keyTemplate.properties
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+        }
+    }
+
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
+            universalApk true
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.debugSign
+        }
+        release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.releaseSign
+            proguardFiles fileTree('proguard').asList().toArray()
+        }
+    }
+
+    flavorDimensions "environment"
+    productFlavors {
+        local {
+            dimension "environment"
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
+        }
+        staging {
+            dimension "environment"
+            applicationIdSuffix '.staging'
+            versionNameSuffix '-STAGING'
+        }
+        production {
+            dimension "environment"
+        }
+    }
+}
+
+dependencies {
+    implementation project(":common:ui")
+    implementation project(":common:data")
+    implementation project(":common:domain")
+    implementation project(":common:platform")
+    implementation shimmer
+}

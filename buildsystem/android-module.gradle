@@ -1,0 +1,24 @@
+apply plugin: 'com.android.library'
+apply from: "${rootDir}/buildsystem/default-config.gradle"
+apply from: "${rootDir}/buildsystem/lint-config.gradle"
+apply from: "${rootDir}/buildsystem/test-config.gradle"
+
+android {
+    buildTypes {
+        debug {}
+        release {}
+    }
+
+    flavorDimensions "environment"
+    productFlavors {
+        local {
+            dimension "environment"
+        }
+        staging {
+            dimension "environment"
+        }
+        production {
+            dimension "environment"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "Globe"
+include ':app'
+include ':common:ui'
+include ':common:api'
+include ':common:data'
+include ':common:domain'
+include ':common:navigation'
+include ':common:platform'

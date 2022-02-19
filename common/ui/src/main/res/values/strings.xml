@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Globe</string>
+    <string name="label_total_confirmed">Total Confirmed</string>
+    <string name="label_date">Latest updated date</string>
+    <string name="label_total_deaths">Total Deaths</string>
+    <string name="label_population">Population</string>
+</resources>

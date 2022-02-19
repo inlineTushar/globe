@@ -1,0 +1,33 @@
+package com.globe
+
+import android.app.Application
+import com.globe.data.di.dataComponent
+import com.globe.di.domainComponent
+import com.globe.di.homeModule
+import com.globe.platform.APPLICATION_BG
+import com.globe.platform.APPLICATION_MAIN
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import org.koin.core.context.startKoin
+
+class GlobeApp : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        initKoin()
+        setupThreadingContexts()
+    }
+
+    private fun initKoin() {
+        startKoin {
+            modules(dataComponent)
+            modules(homeModule)
+            modules(domainComponent)
+        }
+    }
+
+    private fun setupThreadingContexts() {
+        APPLICATION_MAIN = Dispatchers.Main + CoroutineExceptionHandler { _, error -> throw error }
+        APPLICATION_BG = Dispatchers.Default + CoroutineExceptionHandler { _, error -> throw error }
+    }
+}
