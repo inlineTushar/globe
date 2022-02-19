@@ -12,5 +12,6 @@ dependencies {
     api constraint_layout
     api app_compat
     api glide
+    api recycler_view
     kapt glide_processor
 }

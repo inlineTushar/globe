@@ -10,8 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.globe.ErrorFragment
 import com.globe.LoaderFragment
-import com.globe.homecontroller.HomeControllerViewModel.ViewState
 import com.globe.databinding.FragmentHomeControllerBinding
+import com.globe.homecontroller.HomeControllerViewModel.ViewState
 import com.globe.platform.extension.replaceIfNoPrevious
 import com.globe.platform.extension.viewLifecycle
 import kotlinx.coroutines.flow.collect
@@ -30,8 +30,8 @@ class HomeControllerFragment : Fragment() {
     ): View = FragmentHomeControllerBinding.inflate(inflater, container, false)
         .also {
             binding = it
-            homeControllerViewModel.onCreate()
             initObserver()
+            homeControllerViewModel.onCreate()
         }
         .root
 

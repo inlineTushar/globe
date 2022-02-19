@@ -4,6 +4,6 @@ import com.globe.data.model.CountryApiModel
 
 class CountryApi(private val countryService: CountryService) {
 
-    suspend fun getCountryInfo(code: String): List<CountryApiModel> =
-        countryService.getCountryInfo(code)
+    suspend fun getAllCountries(): List<CountryApiModel> =
+        countryService.getAllCountries()
 }

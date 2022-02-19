@@ -1,6 +1,7 @@
 package com.globe
 
 import android.app.Application
+import com.globe.countrylist.di.countryListModule
 import com.globe.data.di.dataComponent
 import com.globe.di.domainComponent
 import com.globe.di.homeModule
@@ -23,6 +24,7 @@ class GlobeApp : Application() {
             modules(dataComponent)
             modules(homeModule)
             modules(domainComponent)
+            modules(countryListModule)
         }
     }
 

@@ -5,7 +5,7 @@ import com.globe.data.api.CountryService
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
-private const val COUNTRY_API = "https://restcountries.com/v3.1/alpha/"
+private const val COUNTRY_API = "https://restcountries.com/v3.1/"
 
 val apiModule = module {
     single {

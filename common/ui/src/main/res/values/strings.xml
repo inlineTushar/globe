@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Globe</string>
-    <string name="label_total_confirmed">Total Confirmed</string>
-    <string name="label_date">Latest updated date</string>
-    <string name="label_total_deaths">Total Deaths</string>
-    <string name="label_population">Population</string>
+    <string name="country_heading_with_flag">%s\u0020 %s (%s)</string>
+    <string name="country_heading">%s (%s)</string>
 </resources>

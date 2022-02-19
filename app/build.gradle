@@ -70,5 +70,5 @@ dependencies {
     implementation project(":common:data")
     implementation project(":common:domain")
     implementation project(":common:platform")
-    implementation shimmer
+    implementation project(":feature:countrylist")
 }
