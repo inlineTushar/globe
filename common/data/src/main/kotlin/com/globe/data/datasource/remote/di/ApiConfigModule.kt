@@ -1,8 +1,8 @@
-package com.globe.data.di
+package com.globe.data.datasource.remote.di
 
 import com.globe.data.BuildConfig
-import com.globe.data.instrumentation.CurrencyJsonAdapter
-import com.globe.data.model.Currency
+import com.globe.data.datasource.remote.instrumentation.CurrencyJsonAdapter
+import com.globe.data.model.CurrencyApiModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import okhttp3.Interceptor
@@ -17,7 +17,7 @@ val apiConfigModule = module {
     single {
         Moshi.Builder()
             .add(
-                Types.newParameterizedType(List::class.java, Currency::class.java),
+                Types.newParameterizedType(List::class.java, CurrencyApiModel::class.java),
                 CurrencyJsonAdapter()
             )
             .build()

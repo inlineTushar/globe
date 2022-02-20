@@ -1,13 +1,13 @@
-package com.globe.data.instrumentation
+package com.globe.data.datasource.remote.instrumentation
 
 import com.globe.data.extension.ifLet
-import com.globe.data.model.Currency
+import com.globe.data.model.CurrencyApiModel
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonReader
 import com.squareup.moshi.JsonWriter
 import java.io.IOException
 
-class CurrencyJsonAdapter : JsonAdapter<List<Currency>>() {
+class CurrencyJsonAdapter : JsonAdapter<List<CurrencyApiModel>>() {
 
     companion object {
         private const val KEY_CURRENCY_NAME = "name"
@@ -16,8 +16,8 @@ class CurrencyJsonAdapter : JsonAdapter<List<Currency>>() {
 
     @Synchronized
     @Throws(IOException::class)
-    override fun fromJson(reader: JsonReader): List<Currency> {
-        val currencies: MutableList<Currency> = mutableListOf()
+    override fun fromJson(reader: JsonReader): List<CurrencyApiModel> {
+        val currencyApiModels: MutableList<CurrencyApiModel> = mutableListOf()
         reader.beginObject()
         while (reader.hasNext()) {
             when (reader.peek()) {
@@ -34,7 +34,7 @@ class CurrencyJsonAdapter : JsonAdapter<List<Currency>>() {
                         }
                     }
                     ifLet(currencyName, currencySymbol) { name, symbol ->
-                        currencies.add(Currency(currencyCode, name, symbol))
+                        currencyApiModels.add(CurrencyApiModel(currencyCode, name, symbol))
                     }
                     reader.endObject()
                 }
@@ -42,12 +42,12 @@ class CurrencyJsonAdapter : JsonAdapter<List<Currency>>() {
             }
         }
         reader.endObject()
-        return currencies
+        return currencyApiModels
     }
 
     @Synchronized
     @Throws(IOException::class)
-    override fun toJson(writer: JsonWriter, value: List<Currency>?) {
+    override fun toJson(writer: JsonWriter, value: List<CurrencyApiModel>?) {
         // Empty
     }
 }

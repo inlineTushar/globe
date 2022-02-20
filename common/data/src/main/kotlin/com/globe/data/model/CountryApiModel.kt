@@ -7,13 +7,12 @@ import com.squareup.moshi.JsonClass
 data class CountryApiModel(
     @Json(name = "name")
     val countryNameApiModel: CountryNameApiModel,
-    @Json(name = "cca2")
-    val countryCode: String,
+    val cca2: String,
     val population: Long,
     val flag: String?,
     @Json(name = "capital")
     val capitals: List<String>?,
-    val currencies: List<Currency>?
+    val currencyApiModels: List<CurrencyApiModel>?
 )
 
 @JsonClass(generateAdapter = true)
@@ -25,4 +24,4 @@ data class CountryNameApiModel(
     val officialName: String
 )
 
-data class Currency(val code: String, val name: String, val symbol: String)
+data class CurrencyApiModel(val code: String, val name: String, val symbol: String)

@@ -1,7 +1,7 @@
-package com.globe.data.di
+package com.globe.data.datasource.remote.di
 
-import com.globe.data.api.CountryApi
-import com.globe.data.api.CountryService
+import com.globe.data.datasource.remote.api.CountryApi
+import com.globe.data.datasource.remote.api.CountryService
 import org.koin.dsl.module
 import retrofit2.Retrofit
 

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.globe.CountryInfoView
-import com.globe.data.repository.CountryModel
+import com.globe.data.model.CountryModel
 import com.globe.extension.onClickDebounced
 
 internal class CountryListAdapter(

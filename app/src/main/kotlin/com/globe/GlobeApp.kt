@@ -9,6 +9,7 @@ import com.globe.platform.APPLICATION_BG
 import com.globe.platform.APPLICATION_MAIN
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 class GlobeApp : Application() {
@@ -21,6 +22,7 @@ class GlobeApp : Application() {
 
     private fun initKoin() {
         startKoin {
+            androidContext(this@GlobeApp)
             modules(dataComponent)
             modules(homeModule)
             modules(domainComponent)

@@ -1,6 +1,6 @@
 package com.globe.countrylist
 
-import com.globe.data.repository.CountryModel
+import com.globe.data.model.CountryModel
 import com.globe.platform.BaseViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
