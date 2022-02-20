@@ -10,7 +10,6 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         ActivityHomeBinding.inflate(layoutInflater).apply {
             setContentView(root)
-            setSupportActionBar(toolbar)
         }
     }
 }

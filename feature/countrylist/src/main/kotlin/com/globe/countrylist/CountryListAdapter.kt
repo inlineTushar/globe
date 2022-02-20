@@ -33,7 +33,7 @@ internal class CountryListAdapter(
 
     class CountryDiffCallback : DiffUtil.ItemCallback<CountryModel>() {
         override fun areItemsTheSame(oldItem: CountryModel, newItem: CountryModel): Boolean =
-            oldItem == newItem
+            oldItem.id == newItem.id
 
         override fun areContentsTheSame(oldItem: CountryModel, newItem: CountryModel): Boolean =
             oldItem == newItem

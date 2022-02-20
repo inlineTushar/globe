@@ -71,4 +71,5 @@ dependencies {
     implementation project(":common:domain")
     implementation project(":common:platform")
     implementation project(":feature:countrylist")
+    implementation project(":feature:search")
 }

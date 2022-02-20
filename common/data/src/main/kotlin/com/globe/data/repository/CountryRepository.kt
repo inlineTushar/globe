@@ -6,6 +6,7 @@ import com.globe.data.datasource.remote.CountryApiDataSource
 import com.globe.data.model.CountryModel
 import com.globe.data.toCountryInfoList
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import timber.log.Timber
 
 class CountryRepository(
@@ -13,25 +14,36 @@ class CountryRepository(
     private val localDataSource: CountryDbDataSource
 ) {
 
-    suspend fun fetchAllCountries(): Either<Throwable, Unit> {
-        if (localDataSource.getAllCountries().isNotEmpty()) {
-            return Either.Right(Unit)
-        } else {
-            try {
-                remoteDataSource
-                    .getAllCountries()
-                    .toCountryInfoList()
-                    .also {
-                        localDataSource.insert(it)
+    private val countries: MutableSharedFlow<List<CountryModel>> = MutableSharedFlow(replay = 1)
+
+    suspend fun fetchAllCountries(keyword: String = ""): Either<Throwable, Unit> {
+        with(getLocalSource(keyword)) {
+            if (isNotEmpty()) {
+                countries.emit(this)
+                return Either.Right(Unit)
+            } else {
+                try {
+                    with(
+                        remoteDataSource
+                            .getAllCountries()
+                            .toCountryInfoList()
+                    ) {
+                        localDataSource.insert(countryList = this)
+                        countries.emit(getLocalSource(keyword))
                         return Either.Right(Unit)
                     }
-            } catch (e: Exception) {
-                Timber.e(e)
-                return Either.Left(e)
+                } catch (e: Exception) {
+                    Timber.e(e)
+                    return Either.Left(e)
+                }
             }
         }
     }
 
+    private suspend fun getLocalSource(keyword: String) =
+        if (keyword.isEmpty()) localDataSource.getAllCountries()
+        else localDataSource.getCountriesBySearch(keyword)
 
-    fun observeAllCountriesInfo(): Flow<List<CountryModel>> = localDataSource.observeCountyList()
+
+    fun observeAllCountriesInfo(): Flow<List<CountryModel>> = countries
 }
