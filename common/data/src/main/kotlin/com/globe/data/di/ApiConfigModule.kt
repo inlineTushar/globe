@@ -1,8 +1,8 @@
-package com.globe.api.di
+package com.globe.data.di
 
-import com.globe.api.BuildConfig
-import com.globe.api.instrumentation.Currency
-import com.globe.api.instrumentation.CurrencyJsonAdapter
+import com.globe.data.BuildConfig
+import com.globe.data.instrumentation.CurrencyJsonAdapter
+import com.globe.data.model.Currency
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import okhttp3.Interceptor

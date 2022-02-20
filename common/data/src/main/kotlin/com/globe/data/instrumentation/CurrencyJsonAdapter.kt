@@ -1,6 +1,7 @@
-package com.globe.api.instrumentation
+package com.globe.data.instrumentation
 
-import com.globe.api.extension.ifLet
+import com.globe.data.extension.ifLet
+import com.globe.data.model.Currency
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonReader
 import com.squareup.moshi.JsonWriter

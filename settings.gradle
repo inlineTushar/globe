@@ -15,7 +15,6 @@ dependencyResolutionManagement {
 rootProject.name = "Globe"
 include ':app'
 include ':common:ui'
-include ':common:api'
 include ':common:data'
 include ':common:domain'
 include ':common:navigation'

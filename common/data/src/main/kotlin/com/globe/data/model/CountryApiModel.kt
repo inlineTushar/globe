@@ -1,6 +1,5 @@
 package com.globe.data.model
 
-import com.globe.api.instrumentation.Currency
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -25,3 +24,5 @@ data class CountryNameApiModel(
     @Json(name = "official")
     val officialName: String
 )
+
+data class Currency(val code: String, val name: String, val symbol: String)
