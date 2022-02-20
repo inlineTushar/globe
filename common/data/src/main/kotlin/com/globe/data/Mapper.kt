@@ -13,7 +13,7 @@ internal fun List<CountryApiModel>.toCountryInfoList(): List<CountryModel> =
             population = it.population,
             flag = it.flag,
             capitals = it.capitals ?: emptyList(),
-            currencies = it.currencyApiModels
+            currencies = it.currencies
                 ?.map { apiModel -> apiModel.toCurrencyModel() }
                 ?: emptyList()
         )
@@ -36,9 +36,12 @@ internal fun CountryDbModel.toCountryModel() =
         population = population,
         flag = flag,
         capitals = capitals?.map { it } ?: emptyList(),
-        currencies = currencies?.map { CurrencyModel(it.id, it.code, it.name, it.symbol) }
-            ?: emptyList()
+        currencies = currencies?.map { it.toCurrencyModel() } ?: emptyList()
     )
+
+internal fun CurrencyDbModel.toCurrencyModel() = CurrencyModel(id, code, name, symbol)
+
+internal fun CurrencyModel.toCurrencyDbModel() = CurrencyDbModel(id, code, name, symbol)
 
 internal fun CountryModel.toCountryDbModel() =
     CountryDbModel(
@@ -48,11 +51,19 @@ internal fun CountryModel.toCountryDbModel() =
         countryCode = countryCode,
         population = population,
         flag = flag,
-        capitals = capitals.toRealmList()
+        capitals = capitals.toRealmList(),
+        currencies = currencies.toRealmList { it.toCurrencyDbModel() }
     )
 
-internal inline fun <reified T> List<T>.toRealmList(): RealmList<T> {
+
+private inline fun <reified T> List<T>.toRealmList(): RealmList<T> {
     val realmList = RealmList<T>()
     realmList.addAll(this)
+    return realmList
+}
+
+private inline fun <reified T, E> List<T>.toRealmList(mapper: (T) -> E): RealmList<E> {
+    val realmList = RealmList<E>()
+    realmList.addAll(this.map(mapper))
     return realmList
 }

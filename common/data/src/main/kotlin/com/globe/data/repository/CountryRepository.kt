@@ -46,4 +46,7 @@ class CountryRepository(
 
 
     fun observeAllCountriesInfo(): Flow<List<CountryModel>> = countries
+
+    fun getCountryDetail(countryId: String): CountryModel? =
+        countries.replayCache.firstOrNull()?.firstOrNull { it.id == countryId }
 }

@@ -8,7 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.globe.EXTRA_COUNTRY_ID
+import com.globe.INTENT_ACTION_COUNTRY_DETAIL
 import com.globe.countrylist.databinding.FragmentCountryListBinding
+import com.globe.platform.extension.internalIntent
 import com.globe.platform.extension.viewLifecycle
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -18,7 +21,7 @@ class CountryListFragment : Fragment() {
 
     private var binding: FragmentCountryListBinding by viewLifecycle()
     private val countryListViewModel: CountryListViewModel by viewModel()
-    private val countryListAdapter = CountryListAdapter {}
+    private val countryListAdapter = CountryListAdapter { countryListViewModel.onCountryTapped(it) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +46,17 @@ class CountryListFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 countryListViewModel.viewState.collect {
                     countryListAdapter.submitList(it.countries)
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                countryListViewModel.navState.collect {
+                    startActivity(
+                        internalIntent(requireContext(), INTENT_ACTION_COUNTRY_DETAIL)
+                            .putExtra(EXTRA_COUNTRY_ID, it.countryId)
+                    )
                 }
             }
         }

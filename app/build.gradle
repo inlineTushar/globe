@@ -72,4 +72,5 @@ dependencies {
     implementation project(":common:platform")
     implementation project(":feature:countrylist")
     implementation project(":feature:search")
+    implementation project(":feature:countrydetail")
 }

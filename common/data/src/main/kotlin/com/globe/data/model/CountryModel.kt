@@ -1,5 +1,9 @@
 package com.globe.data.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class CountryModel(
     val id: String,
     val name: String,
@@ -9,6 +13,12 @@ data class CountryModel(
     val flag: String?,
     val capitals: List<String>,
     val currencies: List<CurrencyModel>
-)
+) : Parcelable
 
-data class CurrencyModel(val id: String, val code: String, val name: String, val symbol: String)
+@Parcelize
+data class CurrencyModel(
+    val id: String,
+    val code: String,
+    val name: String,
+    val symbol: String
+) : Parcelable

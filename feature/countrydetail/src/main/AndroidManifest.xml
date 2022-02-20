@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tushar.countrydetail">
+
+    <application>
+        <activity
+            android:name="com.tushar.countrydetail.CountryDetailActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.Globe.NoActionBar">
+            <intent-filter>
+                <action android:name="com.globe.countrydetail.open" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

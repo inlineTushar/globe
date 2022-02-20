@@ -8,6 +8,9 @@
     <dimen name="radius_8">8dp</dimen>
     <dimen name="elevation_6">6dp</dimen>
 
+    <dimen name="text_xxxxl">38sp</dimen>
+    <dimen name="text_xxxl">34sp</dimen>
+    <dimen name="text_xxl">28sp</dimen>
     <dimen name="text_xl">22sp</dimen>
     <dimen name="text_l">20sp</dimen>
     <dimen name="text_m">18sp</dimen>

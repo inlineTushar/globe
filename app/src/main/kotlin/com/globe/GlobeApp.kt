@@ -8,6 +8,7 @@ import com.globe.di.homeModule
 import com.globe.platform.APPLICATION_BG
 import com.globe.platform.APPLICATION_MAIN
 import com.globe.search.di.searchModule
+import com.tushar.countrydetail.di.countryDetailModule
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidContext
@@ -29,6 +30,7 @@ class GlobeApp : Application() {
             modules(domainComponent)
             modules(countryListModule)
             modules(searchModule)
+            modules(countryDetailModule)
         }
     }
 

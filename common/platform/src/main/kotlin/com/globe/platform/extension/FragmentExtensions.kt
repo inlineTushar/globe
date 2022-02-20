@@ -1,6 +1,7 @@
 package com.globe.platform.extension
 
 import androidx.annotation.IdRes
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import kotlin.reflect.KClass
@@ -91,4 +92,22 @@ fun FragmentManager.remove(fragment: Fragment) {
     beginTransaction()
         .remove(fragment)
         .commitAllowingStateLoss()
+}
+
+fun <T : Fragment> T.withArguments(vararg arguments: Pair<String, Any?>): T {
+    this.arguments = bundleOf(*arguments)
+    return this
+}
+
+inline fun <reified T : Any?> Fragment.fragmentArgs(
+    key: String,
+    fallBack: T? = null
+): Lazy<T> = lazy {
+    val value: Any? = arguments?.get(key)
+    when {
+        value == null && fallBack != null -> fallBack
+        value is T -> value
+        value == null -> throw NullPointerException("$key can not be null")
+        else -> throw TypeCastException("$key can not be casted to type ${T::class}")
+    }
 }

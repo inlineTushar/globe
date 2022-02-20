@@ -1,5 +1,4 @@
 apply from: "${rootDir}/buildsystem/android-module.gradle"
-apply plugin: 'kotlin-parcelize'
 
 dependencies {
     implementation project(":common:ui")

@@ -12,7 +12,7 @@ data class CountryApiModel(
     val flag: String?,
     @Json(name = "capital")
     val capitals: List<String>?,
-    val currencyApiModels: List<CurrencyApiModel>?
+    val currencies: List<CurrencyApiModel>?
 )
 
 @JsonClass(generateAdapter = true)

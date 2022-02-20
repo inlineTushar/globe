@@ -12,9 +12,14 @@ class CountryListViewModel(
 
     data class ViewState(val countries: List<CountryModel>)
 
+    data class NavState(val countryId: String)
+
     private val _viewState: MutableSharedFlow<ViewState> =
         MutableSharedFlow(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val viewState: SharedFlow<ViewState> = _viewState.asSharedFlow()
+
+    private val _navState: MutableSharedFlow<NavState> = MutableSharedFlow()
+    val navState: SharedFlow<NavState> = _navState.asSharedFlow()
 
     fun onCreate() {
         observeCountryInfo()
@@ -28,6 +33,6 @@ class CountryListViewModel(
     }
 
     fun onCountryTapped(country: CountryModel) {
-        //TODO:: set action here
+        coroutineWrapper { _navState.emit(NavState(country.id)) }
     }
 }
