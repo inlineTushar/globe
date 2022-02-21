@@ -2,6 +2,7 @@ package com.globe.data.datasource.remote.di
 
 import com.globe.data.datasource.remote.api.CountryApi
 import com.globe.data.datasource.remote.api.CountryService
+import com.globe.data.extension.NetworkCheck
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
@@ -18,5 +19,9 @@ val apiModule = module {
             .baseUrl(COUNTRY_API)
             .build()
             .create(CountryService::class.java)
+    }
+
+    single {
+        NetworkCheck(get())
     }
 }

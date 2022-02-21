@@ -1,4 +1,4 @@
-package com.globe.search
+package com.globe.search.extension
 
 import androidx.appcompat.widget.SearchView
 import kotlinx.coroutines.ExperimentalCoroutinesApi

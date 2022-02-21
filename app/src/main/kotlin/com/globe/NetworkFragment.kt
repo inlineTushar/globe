@@ -5,17 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.globe.ui.databinding.FragmentEmptyBinding
+import com.globe.databinding.FragmentNetworkErrorBinding
 
-class EmptyFragment : Fragment() {
+class NetworkFragment : Fragment() {
 
     companion object {
-        fun newInstance() = EmptyFragment()
+        fun newInstance() = NetworkFragment()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = FragmentEmptyBinding.inflate(inflater, container, false).root
+    ): View = FragmentNetworkErrorBinding.inflate(inflater, container, false).root
 }

@@ -8,6 +8,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import com.globe.platform.extension.viewLifecycle
 import com.globe.search.databinding.FragmentSearchBinding
+import com.globe.search.extension.textChanges
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.debounce

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.globe.EmptyFragment
+import com.globe.GenericErrorFragment
 import com.globe.platform.extension.fragmentArgs
 import com.globe.platform.extension.replaceIfNoPrevious
 import com.globe.platform.extension.viewLifecycle
@@ -58,7 +58,7 @@ class CountryDetailControllerFragment : Fragment() {
                             }
                         }
                         ViewState.Empty -> {
-                            replaceIfNoPrevious(binding.detailContainer.id) { EmptyFragment.newInstance() }
+                            replaceIfNoPrevious(binding.detailContainer.id) { GenericErrorFragment.newInstance() }
                         }
                     }
                 }

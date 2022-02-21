@@ -8,8 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.globe.ErrorFragment
+import com.globe.GenericErrorFragment
 import com.globe.LoaderFragment
+import com.globe.NetworkFragment
 import com.globe.databinding.FragmentHomeControllerBinding
 import com.globe.homecontroller.HomeControllerViewModel.ViewState
 import com.globe.platform.extension.replaceIfNoPrevious
@@ -46,8 +47,11 @@ class HomeControllerFragment : Fragment() {
                         ViewState.Data -> {
                             replaceIfNoPrevious(binding.container.id) { HomeDataControllerFragment.newInstance() }
                         }
-                        ViewState.Error -> {
-                            replaceIfNoPrevious(binding.container.id) { ErrorFragment.newInstance() }
+                        ViewState.GenericError -> {
+                            replaceIfNoPrevious(binding.container.id) { GenericErrorFragment.newInstance() }
+                        }
+                        ViewState.NetworkError -> {
+                            replaceIfNoPrevious(binding.container.id) { NetworkFragment.newInstance() }
                         }
                     }
                 }

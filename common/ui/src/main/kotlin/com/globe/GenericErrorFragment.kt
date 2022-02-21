@@ -5,17 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.globe.databinding.FragmentErrorBinding
+import com.globe.ui.databinding.FragmentGenericErrorBinding
 
-class ErrorFragment : Fragment() {
+class GenericErrorFragment : Fragment() {
 
     companion object {
-        fun newInstance() = ErrorFragment()
+        fun newInstance() = GenericErrorFragment()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = FragmentErrorBinding.inflate(inflater, container, false).root
+    ): View = FragmentGenericErrorBinding.inflate(inflater, container, false).root
 }

@@ -3,6 +3,8 @@ package com.globe.data.repository
 import arrow.core.Either
 import com.globe.data.datasource.local.CountryDbDataSource
 import com.globe.data.datasource.remote.CountryApiDataSource
+import com.globe.data.exception.NetworkException
+import com.globe.data.extension.NetworkCheck
 import com.globe.data.model.CountryModel
 import com.globe.data.toCountryInfoList
 import kotlinx.coroutines.flow.Flow
@@ -11,7 +13,8 @@ import timber.log.Timber
 
 class CountryRepository(
     private val remoteDataSource: CountryApiDataSource,
-    private val localDataSource: CountryDbDataSource
+    private val localDataSource: CountryDbDataSource,
+    private val networkCheck: NetworkCheck
 ) {
 
     private val countries: MutableSharedFlow<List<CountryModel>> = MutableSharedFlow(replay = 1)
@@ -22,6 +25,9 @@ class CountryRepository(
                 countries.emit(this)
                 return Either.Right(Unit)
             } else {
+                if (!networkCheck.isConnected) {
+                    return Either.Left(NetworkException)
+                }
                 try {
                     with(
                         remoteDataSource
