@@ -1,19 +1,17 @@
 package com.globe.homecontroller
 
-import com.globe.countrylist.ObserveCountryListUseCase
 import com.globe.data.exception.NetworkException
 import com.globe.data.extension.NetworkCheck
 import com.globe.data.extension.NetworkStatus
 import com.globe.data.repository.CountryRepository
-import com.globe.extension.onFailure
-import com.globe.extension.onSuccess
 import com.globe.platform.BaseViewModel
+import com.globe.platform.extension.onFailure
+import com.globe.platform.extension.onSuccess
 import kotlinx.coroutines.flow.*
 import timber.log.Timber
 
 class HomeControllerViewModel(
     private val countryRepository: CountryRepository,
-    private val observeCountryUseCase: ObserveCountryListUseCase,
     private val networkCheck: NetworkCheck
 ) : BaseViewModel() {
 
@@ -38,27 +36,15 @@ class HomeControllerViewModel(
             _viewState.emit(ViewState.Loading)
             countryRepository.fetchAllCountries()
                 .onSuccess { coroutineWrapper { _viewState.emit(ViewState.Data) } }
-                .onFailure {
-                    coroutineWrapper {
-                        _viewState.emit(
-                            if (it is NetworkException)
-                                ViewState.NetworkError
-                            else
-                                ViewState.GenericError
-                        )
-                    }
-                }
+                .onFailure { coroutineWrapper { _viewState.emit(it.toState()) } }
         }
     }
 
     private fun observeCountries() {
-        observeCountryUseCase.observe()
+        countryRepository.observeCountriesInfo()
             .onEach {
                 coroutineWrapper {
-                    if (_viewState.value == ViewState.GenericError ||
-                        _viewState.value == ViewState.NetworkError &&
-                        it.isNotEmpty()
-                    ) {
+                    if (isErrorState(_viewState.value) && it.isNotEmpty()) {
                         _viewState.emit(ViewState.Data)
                     }
                 }
@@ -77,6 +63,12 @@ class HomeControllerViewModel(
             }
             .launchIn(this)
     }
+
+    private fun Throwable.toState() =
+        if (this is NetworkException) ViewState.NetworkError else ViewState.GenericError
+
+    private fun isErrorState(state: ViewState) =
+        state == ViewState.GenericError || state == ViewState.NetworkError
 
     private fun shouldRetryFetch(state: ViewState, status: NetworkStatus) =
         state == ViewState.NetworkError && status is NetworkStatus.Available

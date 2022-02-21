@@ -68,9 +68,10 @@ android {
 dependencies {
     implementation project(":common:ui")
     implementation project(":common:data")
-    implementation project(":common:domain")
     implementation project(":common:platform")
     implementation project(":feature:countrylist")
     implementation project(":feature:search")
     implementation project(":feature:countrydetail")
+
+    testImplementation project(':common:unittestingtools')
 }

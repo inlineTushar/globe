@@ -4,6 +4,6 @@ apply plugin: 'kotlin-parcelize'
 dependencies {
     implementation project(":common:ui")
     implementation project(":common:data")
-    implementation project(":common:domain")
     implementation project(":common:platform")
+    testImplementation project(":common:unittestingtools")
 }

@@ -1,13 +1,14 @@
 package com.globe.countrylist
 
 import com.globe.data.model.CountryModel
+import com.globe.data.repository.CountryRepository
 import com.globe.platform.BaseViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import timber.log.Timber
 
 class CountryListViewModel(
-    private val countryListUseCase: ObserveCountryListUseCase
+    private val countryRepository: CountryRepository
 ) : BaseViewModel() {
 
     data class ViewState(val countries: List<CountryModel>)
@@ -26,7 +27,7 @@ class CountryListViewModel(
     }
 
     private fun observeCountryInfo() {
-        countryListUseCase.observe()
+        countryRepository.observeCountriesInfo()
             .onEach { coroutineWrapper { _viewState.emit(ViewState(it)) } }
             .catch { Timber.e(it) }
             .launchIn(this)
