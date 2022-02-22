@@ -1,132 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/margin_m">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/image_flag_view"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        android:padding="@dimen/margin_m">
 
-    <TextView
-        android:id="@+id/unicode_flag_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_xxxxl"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_flag_view" />
+        <ImageView
+            android:id="@+id/image_flag_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/country_name_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_s"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_xl"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/unicode_flag_view"
-        tools:text="Country name" />
+        <TextView
+            android:id="@+id/unicode_flag_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_xxxxl"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_flag_view" />
 
-    <Space
-        android:id="@+id/space0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/radius_8"
-        app:layout_constraintStart_toStartOf="@id/country_official_name_view"
-        app:layout_constraintTop_toBottomOf="@id/country_name_view" />
+        <TextView
+            android:id="@+id/country_name_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_s"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_xl"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/unicode_flag_view"
+            tools:text="Country name" />
 
-    <TextView
-        android:id="@+id/country_official_name_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black_light"
-        android:textSize="@dimen/text_s"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/space0"
-        tools:text="Official name" />
+        <Space
+            android:id="@+id/space0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/radius_8"
+            app:layout_constraintStart_toStartOf="@id/country_official_name_view"
+            app:layout_constraintTop_toBottomOf="@id/country_name_view" />
 
-    <Space
-        android:id="@+id/space1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/radius_8"
-        app:layout_constraintStart_toStartOf="@id/country_official_name_view"
-        app:layout_constraintTop_toBottomOf="@id/country_official_name_view" />
+        <TextView
+            android:id="@+id/country_official_name_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_light"
+            android:textSize="@dimen/text_s"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/space0"
+            tools:text="Official name" />
 
-    <TextView
-        android:id="@+id/currencies_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black_light"
-        android:textSize="@dimen/text_s"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/space1"
-        tools:text="@string/title_currency"
-        tools:visibility="visible" />
+        <Space
+            android:id="@+id/space1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/radius_8"
+            app:layout_constraintStart_toStartOf="@id/country_official_name_view"
+            app:layout_constraintTop_toBottomOf="@id/country_official_name_view" />
 
-    <Space
-        android:id="@+id/space2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/radius_8"
-        app:layout_constraintStart_toStartOf="@id/country_official_name_view"
-        app:layout_constraintTop_toBottomOf="@id/currencies_view" />
+        <TextView
+            android:id="@+id/currencies_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_light"
+            android:textSize="@dimen/text_s"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/space1"
+            tools:text="@string/title_currency"
+            tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/country_code_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black_light"
-        android:textSize="@dimen/text_s"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/space2"
-        tools:text="@string/title_currency_code" />
+        <Space
+            android:id="@+id/space2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/radius_8"
+            app:layout_constraintStart_toStartOf="@id/country_official_name_view"
+            app:layout_constraintTop_toBottomOf="@id/currencies_view" />
 
-    <Space
-        android:id="@+id/space3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/radius_8"
-        app:layout_constraintStart_toStartOf="@id/country_official_name_view"
-        app:layout_constraintTop_toBottomOf="@id/country_code_view" />
+        <TextView
+            android:id="@+id/country_code_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_light"
+            android:textSize="@dimen/text_s"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/space2"
+            tools:text="@string/title_currency_code" />
 
-    <TextView
-        android:id="@+id/capital_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black_light"
-        android:textSize="@dimen/text_s"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/space3"
-        tools:text="@string/title_capital" />
+        <Space
+            android:id="@+id/space3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/radius_8"
+            app:layout_constraintStart_toStartOf="@id/country_official_name_view"
+            app:layout_constraintTop_toBottomOf="@id/country_code_view" />
 
-    <Space
-        android:id="@+id/space4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/radius_8"
-        app:layout_constraintStart_toStartOf="@id/country_official_name_view"
-        app:layout_constraintTop_toBottomOf="@id/capital_view" />
+        <TextView
+            android:id="@+id/capital_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_light"
+            android:textSize="@dimen/text_s"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/space3"
+            tools:text="@string/title_capital" />
 
-    <TextView
-        android:id="@+id/population_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black_light"
-        android:textSize="@dimen/text_s"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/space4"
-        tools:text="@string/title_population" />
+        <Space
+            android:id="@+id/space4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/radius_8"
+            app:layout_constraintStart_toStartOf="@id/country_official_name_view"
+            app:layout_constraintTop_toBottomOf="@id/capital_view" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/population_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_light"
+            android:textSize="@dimen/text_s"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/space4"
+            tools:text="@string/title_population" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
