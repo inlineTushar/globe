@@ -3,7 +3,9 @@ package com.globe
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
+import androidx.core.view.isVisible
 import com.globe.ui.R
 import com.globe.ui.databinding.ViewCountryInfoBinding
 
@@ -22,12 +24,18 @@ class CountryInfoView @kotlin.jvm.JvmOverloads constructor(
         )
     }
 
-    fun renderContent(name: String, flag: String?, code: String) {
-        binding.heading.text =
-            if (flag.isNullOrEmpty()) {
-                context.getString(R.string.country_heading, name, code)
-            } else {
-                context.getString(R.string.country_heading_with_flag, flag, name, code)
-            }
+    fun renderContent(name: String, flagUnicode: String?, flagUrl: String?, code: String) {
+        binding.apply {
+            imageFlag.isVisible = true
+            unicodeFlag.isVisible = true
+            heading.text = context.getString(R.string.country_heading, name, code)
+            unicodeFlag.text = flagUnicode
+            imageFlag.load(
+                context,
+                flagUrl,
+                onFailure = { imageFlag.visibility = View.INVISIBLE },
+                onSuccess = { unicodeFlag.isVisible = false }
+            )
+        }
     }
 }

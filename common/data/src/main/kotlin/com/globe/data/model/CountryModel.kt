@@ -10,7 +10,7 @@ data class CountryModel(
     val officialName: String,
     val countryCode: String,
     val population: Long,
-    val flag: String?,
+    val flag: FlagModel?,
     val capitals: List<String>,
     val currencies: List<CurrencyModel>
 ) : Parcelable
@@ -21,4 +21,11 @@ data class CurrencyModel(
     val code: String,
     val name: String,
     val symbol: String
+) : Parcelable
+
+@Parcelize
+data class FlagModel(
+    val id: String,
+    val unicode: String?,
+    val url: String?
 ) : Parcelable

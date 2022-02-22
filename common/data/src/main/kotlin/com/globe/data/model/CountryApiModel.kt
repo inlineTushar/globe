@@ -10,9 +10,16 @@ data class CountryApiModel(
     val cca2: String,
     val population: Long,
     val flag: String?,
+    val flags: FlagsApiModel?,
     @Json(name = "capital")
     val capitals: List<String>?,
     val currencies: List<CurrencyApiModel>?
+)
+
+@JsonClass(generateAdapter = true)
+data class FlagsApiModel(
+    @Json(name = "png")
+    val pngUrl: String?
 )
 
 @JsonClass(generateAdapter = true)

@@ -3,17 +3,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/image_flag"
+        android:layout_width="@dimen/icon_xxl"
+        android:layout_height="@dimen/icon_xxl"
+        android:layout_marginStart="@dimen/margin_l"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/unicode_flag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_l"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_l"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="🇪🇸" />
 
     <TextView
         android:id="@+id/heading"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?selectableItemBackground"
-        android:padding="@dimen/margin_l"
+        android:layout_marginStart="@dimen/margin_s"
+        android:paddingTop="@dimen/padding_l"
+        android:paddingBottom="@dimen/padding_l"
         android:textColor="@color/black"
         android:textSize="@dimen/text_s"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_flag"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Spain" />
 

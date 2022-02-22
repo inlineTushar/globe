@@ -5,13 +5,14 @@ import io.realm.RealmList
 
 internal fun List<CountryApiModel>.toCountryInfoList(): List<CountryModel> =
     map {
+        val countryId = it.cca2.hashCode().toString()
         CountryModel(
-            id = it.cca2.hashCode().toString(),
+            id = countryId,
             name = it.countryNameApiModel.name,
             officialName = it.countryNameApiModel.officialName,
             countryCode = it.cca2,
             population = it.population,
-            flag = it.flag,
+            flag = it.toFlagModel(countryId),
             capitals = it.capitals ?: emptyList(),
             currencies = it.currencies
                 ?.map { apiModel -> apiModel.toCurrencyModel() }
@@ -19,7 +20,12 @@ internal fun List<CountryApiModel>.toCountryInfoList(): List<CountryModel> =
         )
     }
 
-internal fun CurrencyApiModel.toCurrencyModel() =
+private fun CountryApiModel.toFlagModel(flagId: String): FlagModel? =
+    if (!flag.isNullOrEmpty() || !flags?.pngUrl.isNullOrEmpty()) {
+        FlagModel(id = flagId, unicode = flag, url = flags?.pngUrl)
+    } else null
+
+private fun CurrencyApiModel.toCurrencyModel() =
     CurrencyModel(
         id = code.plus(symbol).hashCode().toString(),
         code = code,
@@ -34,14 +40,17 @@ internal fun CountryDbModel.toCountryModel() =
         officialName = officialName,
         countryCode = countryCode,
         population = population,
-        flag = flag,
+        flag = toFlagModel(),
         capitals = capitals?.map { it } ?: emptyList(),
         currencies = currencies?.map { it.toCurrencyModel() } ?: emptyList()
     )
 
-internal fun CurrencyDbModel.toCurrencyModel() = CurrencyModel(id, code, name, symbol)
+private fun CurrencyDbModel.toCurrencyModel() = CurrencyModel(id, code, name, symbol)
 
-internal fun CurrencyModel.toCurrencyDbModel() = CurrencyDbModel(id, code, name, symbol)
+private fun CurrencyModel.toCurrencyDbModel() = CurrencyDbModel(id, code, name, symbol)
+
+private fun CountryDbModel.toFlagModel(): FlagModel? =
+    flag?.id?.let { FlagModel(it, flag?.unicode, flag?.url) }
 
 internal fun CountryModel.toCountryDbModel() =
     CountryDbModel(
@@ -50,11 +59,12 @@ internal fun CountryModel.toCountryDbModel() =
         officialName = officialName,
         countryCode = countryCode,
         population = population,
-        flag = flag,
+        flag = toFlagDbModel(),
         capitals = capitals.toRealmList(),
         currencies = currencies.toRealmList { it.toCurrencyDbModel() }
     )
 
+private fun CountryModel.toFlagDbModel() = flag?.id?.let { FlagDbModel(it, flag.unicode, flag.url) }
 
 private inline fun <reified T> List<T>.toRealmList(): RealmList<T> {
     val realmList = RealmList<T>()

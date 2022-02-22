@@ -11,6 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.globe.countrydetail.databinding.FragmentCountryDetailBinding
 import com.globe.data.model.CountryModel
+import com.globe.data.model.CurrencyModel
+import com.globe.load
 import com.globe.platform.extension.fragmentArgs
 import com.globe.platform.extension.viewLifecycle
 import com.globe.platform.extension.withArguments
@@ -56,37 +58,72 @@ class CountryDetailFragment : Fragment() {
     }
 
     private fun FragmentCountryDetailBinding.renderCountryDetail(countryModel: CountryModel) {
-        countryModel.flag?.let {
-            countryFlag.isVisible = true
-            countryFlag.text = it
+        renderFlag(countryModel)
+        renderName(countryModel.name)
+        renderOfficialName(countryModel.officialName)
+        renderCurrencies(countryModel.currencies)
+        renderCountryCode(countryModel.countryCode)
+        renderCapitals(countryModel.capitals)
+        renderPopulation(countryModel.population)
+    }
+
+    private fun FragmentCountryDetailBinding.renderFlag(countryModel: CountryModel) {
+        countryModel.flag?.url?.let {
+            imageFlagView.isVisible = true
+            imageFlagView.load(
+                context = imageFlagView.context,
+                it,
+                onFailure = {
+                    imageFlagView.isVisible = false
+                    renderUnicodeFlag(countryModel)
+                }
+            )
         }
+    }
 
-        countryName.text = countryModel.name
-        countryOfficialName.text = countryModel.officialName
+    private fun FragmentCountryDetailBinding.renderUnicodeFlag(countryModel: CountryModel) {
+        countryModel.flag?.unicode?.let {
+            unicodeFlagView.isVisible = true
+            unicodeFlagView.text = it
+        }
+    }
 
-        countryModel
-            .currencies
+    private fun renderName(name: String) {
+        binding.countryNameView.text = name
+    }
+
+    private fun renderOfficialName(officialName: String) {
+        binding.countryOfficialNameView.text = officialName
+    }
+
+    private fun FragmentCountryDetailBinding.renderCurrencies(currencyList: List<CurrencyModel>) {
+        currencyList
             .takeIf { it.isNotEmpty() }
             ?.apply {
-                currencies.isVisible = true
-                currencies.text = getString(
+                currenciesView.isVisible = true
+                currenciesView.text = getString(
                     R.string.title_currency,
                     joinToString(", ") { "${it.name} (${it.code} - ${it.symbol})" })
             }
+    }
 
-        countryCode.text = getString(R.string.title_currency_code, countryModel.countryCode)
+    private fun renderCountryCode(code: String) {
+        binding.countryCodeView.text = getString(R.string.title_currency_code, code)
+    }
 
-        countryModel
-            .capitals
+    private fun FragmentCountryDetailBinding.renderCapitals(capitals: List<String>) {
+        capitals
             .takeIf { it.isNotEmpty() }
             ?.apply {
-                capital.isVisible = true
-                capital.text = getString(R.string.title_capital, joinToString(", ") { it })
+                capitalView.isVisible = true
+                capitalView.text = getString(R.string.title_capital, joinToString(", ") { it })
             }
+    }
 
-        population.text = getString(
+    private fun renderPopulation(population: Long) {
+        binding.populationView.text = getString(
             R.string.title_population,
-            String.format("%.2fM", (countryModel.population / 1000000.0))
+            String.format("%.2fM", (population / 1000000.0))
         )
     }
 }

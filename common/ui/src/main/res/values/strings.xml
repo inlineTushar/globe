@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Globe</string>
-    <string name="country_heading_with_flag">%s\u0020 %s (%s)</string>
     <string name="country_heading">%s (%s)</string>
     <string name="empty_message">Country information not found</string>
 </resources>

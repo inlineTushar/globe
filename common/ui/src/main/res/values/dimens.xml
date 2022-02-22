@@ -1,4 +1,7 @@
 <resources>
+    <dimen name="padding_l">24dp</dimen>
+
+    <dimen name="margin_xxl">48dp</dimen>
     <dimen name="margin_xl">32dp</dimen>
     <dimen name="margin_l">24dp</dimen>
     <dimen name="margin_m">16dp</dimen>
@@ -18,4 +21,7 @@
     <dimen name="text_xs">14sp</dimen>
     <dimen name="text_xxs">12sp</dimen>
     <dimen name="text_xxxs">10sp</dimen>
+
+    <dimen name="icon_xxxxl">48dp</dimen>
+    <dimen name="icon_xxl">28dp</dimen>
 </resources>

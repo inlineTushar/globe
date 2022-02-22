@@ -25,7 +25,7 @@ internal class CountryListAdapter(
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
         getItem(position).apply {
             holder.itemView as CountryInfoView
-            holder.itemView.renderContent(this.name, this.flag, this.countryCode)
+            holder.itemView.renderContent(name, flag?.unicode, flag?.url, countryCode)
         }
     }
 
