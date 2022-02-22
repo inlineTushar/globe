@@ -13,7 +13,7 @@ import com.globe.INTENT_ACTION_COUNTRY_DETAIL
 import com.globe.countrylist.databinding.FragmentCountryListBinding
 import com.globe.platform.extension.internalIntent
 import com.globe.platform.extension.viewLifecycle
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -44,7 +44,7 @@ class CountryListFragment : Fragment() {
     private fun initObserver() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                countryListViewModel.viewState.collect {
+                countryListViewModel.viewState.collectLatest {
                     countryListAdapter.submitList(it.countries)
                 }
             }
@@ -52,7 +52,7 @@ class CountryListFragment : Fragment() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                countryListViewModel.navState.collect {
+                countryListViewModel.navState.collectLatest {
                     startActivity(
                         internalIntent(requireContext(), INTENT_ACTION_COUNTRY_DETAIL)
                             .putExtra(EXTRA_COUNTRY_ID, it.countryId)

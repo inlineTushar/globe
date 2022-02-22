@@ -45,7 +45,7 @@ internal class CountryRepositoryTest {
         coEvery { mockLocalDataSource.getAllCountries() } returns emptyList()
         coEvery { mockRemoteDataSource.getAllCountries() } returns emptyList()
 
-        assertThat(repository.fetchAllCountries()).isEqualTo(Either.Right(Unit))
+        assertThat(repository.fetchCountries()).isEqualTo(Either.Right(Unit))
     }
 
     @Test
@@ -54,7 +54,7 @@ internal class CountryRepositoryTest {
             every { mockNetworkCheck.isConnected } returns false
             coEvery { mockLocalDataSource.getAllCountries() } returns emptyList()
 
-            assertThat(repository.fetchAllCountries()).isEqualTo(Either.Left(NetworkException))
+            assertThat(repository.fetchCountries()).isEqualTo(Either.Left(NetworkException))
         }
 
     @Test
@@ -65,22 +65,22 @@ internal class CountryRepositoryTest {
             coEvery { mockLocalDataSource.getAllCountries() } returns emptyList()
             coEvery { mockRemoteDataSource.getAllCountries() } throws exception
 
-            assertThat(repository.fetchAllCountries()).isEqualTo(Either.Left(exception))
+            assertThat(repository.fetchCountries()).isEqualTo(Either.Left(exception))
         }
 
     @Test
     fun `Should return country list from local source`() =
         runBlockingTest {
             coEvery { mockLocalDataSource.getAllCountries() } returns mockCountryModelList
-            assertThat(repository.fetchAllCountries()).isEqualTo(Either.Right(Unit))
+            assertThat(repository.fetchCountries()).isEqualTo(Either.Right(Unit))
         }
 
     @Test
     fun `Should observe country list as expected`() =
         runBlockingTest {
             coEvery { mockLocalDataSource.getAllCountries() } returns mockCountryModelList
-            repository.observeCountriesInfo().test {
-                repository.fetchAllCountries()
+            repository.observeCountries().test {
+                repository.fetchCountries()
                 assertEquals(mockCountryModelList, awaitItem())
                 cancelAndConsumeRemainingEvents()
             }
@@ -90,14 +90,14 @@ internal class CountryRepositoryTest {
     fun `Should get expected country by id`() =
         runBlockingTest {
             coEvery { mockLocalDataSource.getAllCountries() } returns mockCountryModelList
-            repository.fetchAllCountries()
-            assertEquals(repository.getCountryDetail(mockCountryId), mockCountryModelList[0])
+            repository.fetchCountries()
+            assertEquals(repository.getCountry(mockCountryId), mockCountryModelList[0])
         }
 
     @Test
     fun `Should return country list by keyword search`() =
         runBlockingTest {
             coEvery { mockLocalDataSource.getCountriesBySearch(any()) } returns mockCountryModelList
-            assertThat(repository.fetchAllCountries("any country")).isEqualTo(Either.Right(Unit))
+            assertThat(repository.fetchCountries("any country")).isEqualTo(Either.Right(Unit))
         }
 }

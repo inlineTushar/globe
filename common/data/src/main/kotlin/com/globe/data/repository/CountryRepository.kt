@@ -19,7 +19,7 @@ class CountryRepository(
 
     private val countries: MutableSharedFlow<List<CountryModel>> = MutableSharedFlow(replay = 1)
 
-    suspend fun fetchAllCountries(keyword: String = ""): Either<Throwable, Unit> {
+    suspend fun fetchCountries(keyword: String = ""): Either<Throwable, Unit> {
         with(getLocalSource(keyword)) {
             if (isNotEmpty()) {
                 countries.emit(this)
@@ -34,7 +34,7 @@ class CountryRepository(
                             .getAllCountries()
                             .toCountryInfoList()
                     ) {
-                        localDataSource.insert(countryList = this)
+                        localDataSource.insert(countries = this)
                         countries.emit(getLocalSource(keyword))
                         return Either.Right(Unit)
                     }
@@ -50,9 +50,8 @@ class CountryRepository(
         if (keyword.isEmpty()) localDataSource.getAllCountries()
         else localDataSource.getCountriesBySearch(keyword)
 
+    fun observeCountries(): Flow<List<CountryModel>> = countries
 
-    fun observeCountriesInfo(): Flow<List<CountryModel>> = countries
-
-    fun getCountryDetail(countryId: String): CountryModel? =
+    fun getCountry(countryId: String): CountryModel? =
         countries.replayCache.firstOrNull()?.firstOrNull { it.id == countryId }
 }

@@ -13,10 +13,10 @@ class CountryDbDataSourceImpl(
     private val realmManager: RealmManager
 ) : CountryDbDataSource {
 
-    override suspend fun insert(countryList: List<CountryModel>) {
+    override suspend fun insert(countries: List<CountryModel>) {
         executeAndWrapRealmQuery(realmManager) { realm ->
             realm.executeTransaction {
-                it.insertOrUpdate(countryList.map { countryModel -> countryModel.toCountryDbModel() })
+                it.insertOrUpdate(countries.map { countryModel -> countryModel.toCountryDbModel() })
             }
         }
     }

@@ -8,6 +8,6 @@ class SearchViewModel(
 ) : BaseViewModel() {
 
     fun searchCounties(keyword: String) {
-        coroutineWrapper { countryRepository.fetchAllCountries(keyword) }
+        coroutineWrapper { countryRepository.fetchCountries(keyword) }
     }
 }

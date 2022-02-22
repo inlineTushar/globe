@@ -8,7 +8,6 @@ dependencies {
     api constraint_layout
     api navigation_fragment
     api navigation_ui
-    api material
     api constraint_layout
     api app_compat
     api glide

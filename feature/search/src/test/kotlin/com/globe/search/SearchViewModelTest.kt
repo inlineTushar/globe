@@ -16,6 +16,6 @@ class SearchViewModelTest {
     fun `Should trigger fetch in repository`() {
         val keyword = "Spa"
         viewModel.searchCounties(keyword)
-        coVerify { mockCountryRepository.fetchAllCountries(keyword) }
+        coVerify { mockCountryRepository.fetchCountries(keyword) }
     }
 }

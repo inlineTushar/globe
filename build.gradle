@@ -10,7 +10,6 @@ buildscript {
         classpath build_gradle_plugin
         classpath ktlint_plugin
         classpath realm_plugin
-        classpath navigation_safe_args_plugin
         classpath junit5_plugin
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
     }

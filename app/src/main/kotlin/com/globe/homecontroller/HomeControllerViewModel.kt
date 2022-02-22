@@ -34,14 +34,14 @@ class HomeControllerViewModel(
     private fun fetchCounties() {
         coroutineWrapper {
             _viewState.emit(ViewState.Loading)
-            countryRepository.fetchAllCountries()
+            countryRepository.fetchCountries()
                 .onSuccess { coroutineWrapper { _viewState.emit(ViewState.Data) } }
                 .onFailure { coroutineWrapper { _viewState.emit(it.toState()) } }
         }
     }
 
     private fun observeCountries() {
-        countryRepository.observeCountriesInfo()
+        countryRepository.observeCountries()
             .onEach {
                 coroutineWrapper {
                     if (isErrorState(_viewState.value) && it.isNotEmpty()) {

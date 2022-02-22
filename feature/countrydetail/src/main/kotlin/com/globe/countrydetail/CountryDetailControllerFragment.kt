@@ -9,13 +9,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.globe.GenericErrorFragment
+import com.globe.countrydetail.CountryDetailControllerViewModel.ViewState
+import com.globe.countrydetail.databinding.FragmentCountryControllerDetailBinding
 import com.globe.platform.extension.fragmentArgs
 import com.globe.platform.extension.replaceIfNoPrevious
 import com.globe.platform.extension.viewLifecycle
 import com.globe.platform.extension.withArguments
-import com.globe.countrydetail.CountryDetailControllerViewModel.ViewState
-import com.globe.countrydetail.databinding.FragmentCountryControllerDetailBinding
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -50,7 +50,7 @@ class CountryDetailControllerFragment : Fragment() {
     private fun initObserver() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                countryDetailControllerViewModel.viewState.collect { viewState ->
+                countryDetailControllerViewModel.viewState.collectLatest { viewState ->
                     when (viewState) {
                         is ViewState.Data -> {
                             replaceIfNoPrevious(binding.detailContainer.id) {
@@ -58,7 +58,7 @@ class CountryDetailControllerFragment : Fragment() {
                             }
                         }
                         ViewState.Empty -> {
-                            replaceIfNoPrevious(binding.detailContainer.id) { GenericErrorFragment.newInstance() }
+                            replaceIfNoPrevious(binding.detailContainer.id) { com.globe.GenericErrorFragment.newInstance() }
                         }
                     }
                 }

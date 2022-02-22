@@ -3,7 +3,6 @@ package com.globe.countrylist
 import com.globe.data.model.CountryModel
 import com.globe.data.repository.CountryRepository
 import com.globe.platform.BaseViewModel
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import timber.log.Timber
 
@@ -15,9 +14,8 @@ class CountryListViewModel(
 
     data class NavState(val countryId: String)
 
-    private val _viewState: MutableSharedFlow<ViewState> =
-        MutableSharedFlow(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val viewState: SharedFlow<ViewState> = _viewState.asSharedFlow()
+    private val _viewState: MutableStateFlow<ViewState> = MutableStateFlow(ViewState(emptyList()))
+    val viewState: StateFlow<ViewState> = _viewState.asStateFlow()
 
     private val _navState: MutableSharedFlow<NavState> = MutableSharedFlow()
     val navState: SharedFlow<NavState> = _navState.asSharedFlow()
@@ -27,7 +25,7 @@ class CountryListViewModel(
     }
 
     private fun observeCountryInfo() {
-        countryRepository.observeCountriesInfo()
+        countryRepository.observeCountries()
             .onEach { coroutineWrapper { _viewState.emit(ViewState(it)) } }
             .catch { Timber.e(it) }
             .launchIn(this)

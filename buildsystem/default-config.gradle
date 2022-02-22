@@ -1,6 +1,5 @@
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion project.compile_sdk_version
@@ -54,28 +53,22 @@ android {
 
     dependencies {
         coreLibraryDesugaring desugar_jdk
-//        implementation platform(firebase_bom)
 
         api kotlin_stdlib
         api kotlin_reflect
         api koin
         api koin_extensions
         api core_ktx
-//        api crashlytics
         api timber
         api coroutines_core
         api coroutines_reactive
         api coroutines_android
         api arrow_core_data
         api security_jetpack
-        api work_manager
         api support_annotations
         api moshi
         api moshi_kotlin
         api moshi_adapters
         kapt(moshi_kotlin_codegen)
-
-//        api firebase_analytics
-//        api firebase_performance
     }
 }

@@ -28,7 +28,7 @@ class CountryListViewModelTest {
 
     @Test
     fun `Should emit ViewState`() = runBlockingTest {
-        coEvery { mockCountryRepository.observeCountriesInfo() } returns flowOf(mockCountryList)
+        coEvery { mockCountryRepository.observeCountries() } returns flowOf(mockCountryList)
         viewModel.viewState.test {
             viewModel.onCreate()
             assertEquals(ViewState(mockCountryList), awaitItem())
@@ -38,14 +38,14 @@ class CountryListViewModelTest {
 
     @Test
     fun `Should not emit ViewState`() = runBlockingTest {
-        coEvery { mockCountryRepository.observeCountriesInfo() } returns flow { throw Exception() }
+        coEvery { mockCountryRepository.observeCountries() } returns flow { throw Exception() }
         viewModel.onCreate()
         viewModel.viewState.test { expectNoEvents() }
     }
 
     @Test
     fun `Should emit NavState when country is tapped`() = runBlockingTest {
-        coEvery { mockCountryRepository.observeCountriesInfo() } returns flowOf(mockCountryList)
+        coEvery { mockCountryRepository.observeCountries() } returns flowOf(mockCountryList)
         viewModel.navState.test {
             viewModel.onCountryTapped(mockCountryList[0])
             assertEquals(NavState(mockCountryId), awaitItem())

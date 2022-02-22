@@ -16,7 +16,7 @@ import com.globe.load
 import com.globe.platform.extension.fragmentArgs
 import com.globe.platform.extension.viewLifecycle
 import com.globe.platform.extension.withArguments
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -50,7 +50,7 @@ class CountryDetailFragment : Fragment() {
     private fun initObserver() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                countryDetailViewModel.viewState.collect {
+                countryDetailViewModel.viewState.collectLatest {
                     binding.renderCountryDetail(it.countryModel)
                 }
             }
@@ -102,13 +102,13 @@ class CountryDetailFragment : Fragment() {
             ?.apply {
                 currenciesView.isVisible = true
                 currenciesView.text = getString(
-                    R.string.title_currency,
+                    com.globe.ui.R.string.title_currency,
                     joinToString(", ") { "${it.name} (${it.code} - ${it.symbol})" })
             }
     }
 
     private fun renderCountryCode(code: String) {
-        binding.countryCodeView.text = getString(R.string.title_currency_code, code)
+        binding.countryCodeView.text = getString(com.globe.ui.R.string.title_currency_code, code)
     }
 
     private fun FragmentCountryDetailBinding.renderCapitals(capitals: List<String>) {
@@ -116,13 +116,14 @@ class CountryDetailFragment : Fragment() {
             .takeIf { it.isNotEmpty() }
             ?.apply {
                 capitalView.isVisible = true
-                capitalView.text = getString(R.string.title_capital, joinToString(", ") { it })
+                capitalView.text =
+                    getString(com.globe.ui.R.string.title_capital, joinToString(", ") { it })
             }
     }
 
     private fun renderPopulation(population: Long) {
         binding.populationView.text = getString(
-            R.string.title_population,
+            com.globe.ui.R.string.title_population,
             String.format("%.2fM", (population / 1000000.0))
         )
     }

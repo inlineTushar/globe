@@ -23,7 +23,7 @@ class CountryDetailControllerViewModelTest {
     @Test
     fun `Should emit Data state`() = runBlockingTest {
         val mockCountryModel: CountryModel = mockk()
-        every { mockCountryRepository.getCountryDetail(any()) } returns mockCountryModel
+        every { mockCountryRepository.getCountry(any()) } returns mockCountryModel
         viewModel.onCreate()
         viewModel.viewState.test {
             assertEquals(ViewState.Data(mockCountryModel), awaitItem())
@@ -33,7 +33,7 @@ class CountryDetailControllerViewModelTest {
 
     @Test
     fun `Should emit Empty state`() = runBlockingTest {
-        every { mockCountryRepository.getCountryDetail(any()) } returns null
+        every { mockCountryRepository.getCountry(any()) } returns null
         viewModel.onCreate()
         viewModel.viewState.test {
             assertEquals(ViewState.Empty, awaitItem())

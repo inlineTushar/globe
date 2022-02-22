@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import java.lang.annotation.Repeatable
 import kotlin.test.assertEquals
 
 @ExtendWith(MainCoroutineScopeExtension::class)
@@ -31,8 +30,8 @@ class HomeControllerViewModelTest {
 
     @Test
     fun `Should emit Loading state`() = runBlockingTest {
-        coEvery { mockCountryRepository.fetchAllCountries() } returns Either.Right(Unit)
-        coEvery { mockCountryRepository.observeCountriesInfo() } returns flowOf(mockCountryList)
+        coEvery { mockCountryRepository.fetchCountries() } returns Either.Right(Unit)
+        coEvery { mockCountryRepository.observeCountries() } returns flowOf(mockCountryList)
         coEvery { mockNetworkCheck.changes() } returns flowOf(NetworkStatus.Available)
         viewModel.viewState.test {
             viewModel.onCreate()
@@ -43,8 +42,8 @@ class HomeControllerViewModelTest {
 
     @Test
     fun `Should emit Data state`() = runBlockingTest {
-        coEvery { mockCountryRepository.fetchAllCountries() } returns Either.Right(Unit)
-        coEvery { mockCountryRepository.observeCountriesInfo() } returns flowOf(mockCountryList)
+        coEvery { mockCountryRepository.fetchCountries() } returns Either.Right(Unit)
+        coEvery { mockCountryRepository.observeCountries() } returns flowOf(mockCountryList)
         coEvery { mockNetworkCheck.changes() } returns flowOf(NetworkStatus.Available)
         viewModel.viewState.test {
             viewModel.onCreate()
@@ -56,8 +55,8 @@ class HomeControllerViewModelTest {
 
     @Test
     fun `Should emit NetworkError state`() = runBlockingTest {
-        coEvery { mockCountryRepository.fetchAllCountries() } returns Either.Left(NetworkException)
-        coEvery { mockCountryRepository.observeCountriesInfo() } returns flowOf(mockCountryList)
+        coEvery { mockCountryRepository.fetchCountries() } returns Either.Left(NetworkException)
+        coEvery { mockCountryRepository.observeCountries() } returns flowOf(mockCountryList)
         coEvery { mockNetworkCheck.changes() } returns flowOf(NetworkStatus.Available)
         viewModel.viewState.test {
             viewModel.onCreate()
@@ -69,8 +68,8 @@ class HomeControllerViewModelTest {
 
     @Test
     fun `Should emit GenericError state`() = runBlockingTest {
-        coEvery { mockCountryRepository.fetchAllCountries() } returns Either.Left(RuntimeException())
-        coEvery { mockCountryRepository.observeCountriesInfo() } returns flowOf(mockCountryList)
+        coEvery { mockCountryRepository.fetchCountries() } returns Either.Left(RuntimeException())
+        coEvery { mockCountryRepository.observeCountries() } returns flowOf(mockCountryList)
         coEvery { mockNetworkCheck.changes() } returns flowOf(NetworkStatus.Available)
         viewModel.viewState.test {
             viewModel.onCreate()
@@ -82,8 +81,8 @@ class HomeControllerViewModelTest {
 
     @Test
     fun `Should emit state as expected`() = runBlockingTest {
-        coEvery { mockCountryRepository.fetchAllCountries() } coAnswers { Either.Left(NetworkException) } coAndThen { Either.Right(Unit) }
-        coEvery { mockCountryRepository.observeCountriesInfo() } returns flowOf(mockCountryList)
+        coEvery { mockCountryRepository.fetchCountries() } coAnswers { Either.Left(NetworkException) } coAndThen { Either.Right(Unit) }
+        coEvery { mockCountryRepository.observeCountries() } returns flowOf(mockCountryList)
         coEvery { mockNetworkCheck.changes() } coAnswers { flowOf(NetworkStatus.Unavailable) } coAndThen { flowOf(NetworkStatus.Available) }
         viewModel.viewState.test {
             viewModel.onCreate()

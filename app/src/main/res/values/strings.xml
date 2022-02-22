@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="network_error_message">Connect to internet to load content</string>
-    <string name="title_country">%s %s(%s)</string>
-</resources>

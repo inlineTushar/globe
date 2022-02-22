@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="activity_detail">Detail</string>
-    <string name="title_currency">Currency: %s</string>
-    <string name="title_currency_code">Country Code: %s</string>
-    <string name="title_capital">Capital: %s</string>
-    <string name="title_population">Population: %s</string>
-</resources>

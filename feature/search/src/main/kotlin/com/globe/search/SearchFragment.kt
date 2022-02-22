@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.globe.platform.extension.viewLifecycle
 import com.globe.search.databinding.FragmentSearchBinding
 import com.globe.search.extension.textChanges
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -44,6 +44,6 @@ class SearchFragment : Fragment() {
             .textChanges()
             .debounce(DEBOUNCE_TIME)
             .onEach { searchViewModel.searchCounties(it) }
-            .launchIn(MainScope())
+            .launchIn(lifecycleScope)
     }
 }

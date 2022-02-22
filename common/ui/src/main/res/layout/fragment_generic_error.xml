@@ -14,5 +14,4 @@
         android:text="@string/empty_message"
         />
 
-
 </androidx.appcompat.widget.LinearLayoutCompat>

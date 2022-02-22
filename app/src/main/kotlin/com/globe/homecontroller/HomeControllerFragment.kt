@@ -15,7 +15,7 @@ import com.globe.databinding.FragmentHomeControllerBinding
 import com.globe.homecontroller.HomeControllerViewModel.ViewState
 import com.globe.platform.extension.replaceIfNoPrevious
 import com.globe.platform.extension.viewLifecycle
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -39,7 +39,7 @@ class HomeControllerFragment : Fragment() {
     private fun initObserver() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                homeControllerViewModel.viewState.collect { viewState ->
+                homeControllerViewModel.viewState.collectLatest { viewState ->
                     when (viewState) {
                         ViewState.Loading -> {
                             replaceIfNoPrevious(binding.container.id) { LoaderFragment.newInstance() }

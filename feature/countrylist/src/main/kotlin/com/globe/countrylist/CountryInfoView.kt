@@ -1,4 +1,4 @@
-package com.globe
+package com.globe.countrylist
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
+import com.globe.countrylist.databinding.ViewCountryInfoBinding
+import com.globe.load
 import com.globe.ui.R
-import com.globe.ui.databinding.ViewCountryInfoBinding
 
 class CountryInfoView @kotlin.jvm.JvmOverloads constructor(
     context: Context,

@@ -21,7 +21,7 @@ class CountryDetailControllerViewModel(
     val viewState: StateFlow<ViewState> = _viewState.asStateFlow()
 
     fun onCreate() {
-        countryRepository.getCountryDetail(countryId)?.let {
+        countryRepository.getCountry(countryId)?.let {
             coroutineWrapper { _viewState.emit(ViewState.Data(it)) }
         } ?: coroutineWrapper { _viewState.emit(ViewState.Empty) }
     }
