@@ -48,6 +48,7 @@ ext {
     okhttp_persistent_cookie = "com.github.franmontiel:PersistentCookieJar:v1.0.1"
     retrofit_moshi_converter = "com.squareup.retrofit2:converter-moshi:$retrofit_version"
     retrofit = "com.squareup.retrofit2:retrofit:$retrofit_version"
+    mock_retrofit = "co.infinum:retromock:$mock_retrofit_version"
     moshi = "com.squareup.moshi:moshi:$moshi_version"
     moshi_kotlin = "com.squareup.moshi:moshi-kotlin:$moshi_version"
     moshi_adapters = "com.squareup.moshi:moshi-adapters:$moshi_version"

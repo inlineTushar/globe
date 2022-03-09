@@ -9,6 +9,7 @@ dependencies {
     implementation okhttp_logging
     api retrofit_moshi_converter
     api retrofit
+    implementation mock_retrofit
     implementation project(":common:platform")
 
     testImplementation project(":common:unittestingtools")
