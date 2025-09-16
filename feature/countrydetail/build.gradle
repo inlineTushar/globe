@@ -1,5 +1,9 @@
 apply from: "${rootDir}/buildsystem/android-module.gradle"
 
+android {
+    namespace 'com.globe.countrydetail'
+}
+
 dependencies {
     implementation project(":common:ui")
     implementation project(":common:data")

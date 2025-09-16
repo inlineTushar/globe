@@ -7,6 +7,7 @@ apply from: "${rootDir}/buildsystem/lint-config.gradle"
 apply from: "${rootDir}/buildsystem/test-config.gradle"
 
 android {
+    namespace 'com.globe'
     signingConfigs {
         debugSign {
             storeFile file("${rootDir}/keystore/debug.keystore")

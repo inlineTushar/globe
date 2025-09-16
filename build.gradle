@@ -11,7 +11,7 @@ buildscript {
         classpath ktlint_plugin
         classpath realm_plugin
         classpath junit5_plugin
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 

@@ -1,5 +1,9 @@
 apply from: "${rootDir}/buildsystem/android-module.gradle"
 
+android {
+    namespace 'com.globe.ui'
+}
+
 dependencies {
     api androidx_core
     api core_ktx

@@ -1,4 +1,9 @@
 apply from: "${rootDir}/buildsystem/android-module.gradle"
+apply plugin: 'kotlin-parcelize'
+
+android {
+    namespace 'com.globe.search'
+}
 
 dependencies {
     implementation project(":common:ui")

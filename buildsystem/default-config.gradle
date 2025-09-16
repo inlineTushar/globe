@@ -27,7 +27,7 @@ android {
         freeCompilerArgs += [
                 // Opt-in option for Koin annotation of KoinComponent --> https://github.com/InsertKoinIO/koin/issues/939
                 // Also for any OptIn requirements on experimental or deprecated APIs
-                "-Xopt-in=kotlin.RequiresOptIn"
+                "-opt-in=kotlin.RequiresOptIn"
         ]
     }
 
@@ -47,6 +47,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        buildConfig true
     }
 
     dependencies {

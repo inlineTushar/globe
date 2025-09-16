@@ -2,6 +2,10 @@ apply from: "${rootDir}/buildsystem/android-module.gradle"
 apply plugin: 'realm-android'
 apply plugin: 'kotlin-parcelize'
 
+android {
+    namespace 'com.globe.data'
+}
+
 dependencies {
     implementation(platform(okhttp_bom))
     implementation okhttp

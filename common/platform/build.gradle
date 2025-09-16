@@ -1,5 +1,9 @@
 apply from: "${rootDir}/buildsystem/android-module.gradle"
 
+android {
+    namespace 'com.globe.platform'
+}
+
 dependencies {
     implementation project(":common:ui")
     api lifecycle_viewmodel

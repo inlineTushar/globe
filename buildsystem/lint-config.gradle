@@ -6,8 +6,3 @@ ktlint {
     android.set(true)
 }
 
-android {
-    lintOptions {
-        abortOnError false
-    }
-}
