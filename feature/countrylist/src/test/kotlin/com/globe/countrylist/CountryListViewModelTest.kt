@@ -5,7 +5,6 @@ import com.globe.countrylist.CountryListViewModel.NavState
 import com.globe.countrylist.CountryListViewModel.ViewState
 import com.globe.data.model.CountryModel
 import com.globe.data.repository.CountryRepository
-import com.globe.unittestingtools.MainCoroutineScopeExtension
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
@@ -13,18 +12,22 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 import kotlin.test.assertEquals
 
-@ExtendWith(MainCoroutineScopeExtension::class)
 @OptIn(ExperimentalCoroutinesApi::class)
 class CountryListViewModelTest {
     private val mockCountryRepository: CountryRepository = mockk()
     private val mockCountryId = "anyId"
     private val mockCountryList: List<CountryModel> =
         listOf(mockk { every { id } returns mockCountryId })
-    private val viewModel: CountryListViewModel = CountryListViewModel(mockCountryRepository)
+    private lateinit var viewModel: CountryListViewModel
+
+    @BeforeEach
+    fun setUp() {
+        viewModel = CountryListViewModel(mockCountryRepository)
+    }
 
     @Test
     fun `Should emit ViewState`() = runBlockingTest {

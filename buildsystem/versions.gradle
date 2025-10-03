@@ -1,7 +1,6 @@
 ext {
     kotlin_version = '1.9.22'
     android_gradle_plugin_version = '8.13.0'
-    build_tools_version = "34.0.0"
     compile_sdk_version = 34
     min_sdk_version = 24
     target_sdk_version = 34

@@ -9,27 +9,30 @@ import com.globe.data.model.CountryModel
 import com.globe.data.repository.CountryRepository
 import com.globe.homecontroller.HomeControllerViewModel
 import com.globe.homecontroller.HomeControllerViewModel.ViewState
-import com.globe.unittestingtools.MainCoroutineScopeExtension
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 import kotlin.test.assertEquals
 
-@ExtendWith(MainCoroutineScopeExtension::class)
 @OptIn(ExperimentalCoroutinesApi::class)
 class HomeControllerViewModelTest {
     private var mockCountryList: List<CountryModel> = listOf(mockk())
     private var mockCountryRepository: CountryRepository = mockk()
     private var mockNetworkCheck: NetworkCheck = mockk()
-    private var viewModel: HomeControllerViewModel =
-        HomeControllerViewModel(mockCountryRepository, mockNetworkCheck)
+    private lateinit var viewModel: HomeControllerViewModel
+
+    @BeforeEach
+    fun setUp() {
+        viewModel = HomeControllerViewModel(mockCountryRepository, mockNetworkCheck)
+    }
 
     @Test
-    fun `Should emit Loading state`() = runBlockingTest {
+    fun `Should emit Loading state`(): Unit = runTest {
         coEvery { mockCountryRepository.fetchCountries() } returns Either.Right(Unit)
         coEvery { mockCountryRepository.observeCountries() } returns flowOf(mockCountryList)
         coEvery { mockNetworkCheck.changes() } returns flowOf(NetworkStatus.Available)
@@ -41,7 +44,7 @@ class HomeControllerViewModelTest {
     }
 
     @Test
-    fun `Should emit Data state`() = runBlockingTest {
+    fun `Should emit Data state`(): Unit = runTest {
         coEvery { mockCountryRepository.fetchCountries() } returns Either.Right(Unit)
         coEvery { mockCountryRepository.observeCountries() } returns flowOf(mockCountryList)
         coEvery { mockNetworkCheck.changes() } returns flowOf(NetworkStatus.Available)
@@ -54,7 +57,7 @@ class HomeControllerViewModelTest {
     }
 
     @Test
-    fun `Should emit NetworkError state`() = runBlockingTest {
+    fun `Should emit NetworkError state`(): Unit = runTest {
         coEvery { mockCountryRepository.fetchCountries() } returns Either.Left(NetworkException)
         coEvery { mockCountryRepository.observeCountries() } returns flowOf(mockCountryList)
         coEvery { mockNetworkCheck.changes() } returns flowOf(NetworkStatus.Available)
@@ -67,7 +70,7 @@ class HomeControllerViewModelTest {
     }
 
     @Test
-    fun `Should emit GenericError state`() = runBlockingTest {
+    fun `Should emit GenericError state`(): Unit = runTest {
         coEvery { mockCountryRepository.fetchCountries() } returns Either.Left(RuntimeException())
         coEvery { mockCountryRepository.observeCountries() } returns flowOf(mockCountryList)
         coEvery { mockNetworkCheck.changes() } returns flowOf(NetworkStatus.Available)
@@ -80,10 +83,16 @@ class HomeControllerViewModelTest {
     }
 
     @Test
-    fun `Should emit state as expected`() = runBlockingTest {
-        coEvery { mockCountryRepository.fetchCountries() } coAnswers { Either.Left(NetworkException) } coAndThen { Either.Right(Unit) }
+    fun `Should emit state as expected`(): Unit = runTest {
+        coEvery { mockCountryRepository.fetchCountries() } returnsMany listOf(
+            Either.Left(NetworkException),
+            Either.Right(Unit)
+        )
         coEvery { mockCountryRepository.observeCountries() } returns flowOf(mockCountryList)
-        coEvery { mockNetworkCheck.changes() } coAnswers { flowOf(NetworkStatus.Unavailable) } coAndThen { flowOf(NetworkStatus.Available) }
+        coEvery { mockNetworkCheck.changes() } returns flow {
+            emit(NetworkStatus.Unavailable)
+            emit(NetworkStatus.Available)
+        }
         viewModel.viewState.test {
             viewModel.onCreate()
             assertEquals(ViewState.Loading, awaitItem())

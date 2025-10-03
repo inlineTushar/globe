@@ -4,7 +4,6 @@ import app.cash.turbine.test
 import com.globe.countrydetail.CountryDetailControllerViewModel.ViewState
 import com.globe.data.model.CountryModel
 import com.globe.data.repository.CountryRepository
-import com.globe.unittestingtools.MainCoroutineScopeExtension
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -13,7 +12,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import kotlin.test.assertEquals
 
-@ExtendWith(MainCoroutineScopeExtension::class)
 @OptIn(ExperimentalCoroutinesApi::class)
 class CountryDetailControllerViewModelTest {
     private val mockCountryRepository: CountryRepository = mockk()

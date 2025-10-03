@@ -7,19 +7,16 @@ import com.globe.data.datasource.remote.CountryApiDataSource
 import com.globe.data.exception.NetworkException
 import com.globe.data.extension.NetworkCheck
 import com.globe.data.model.CountryModel
-import com.globe.unittestingtools.MainCoroutineScopeExtension
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 import kotlin.test.assertEquals
 
-@ExtendWith(MainCoroutineScopeExtension::class)
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class CountryRepositoryTest {
 
@@ -40,7 +37,7 @@ internal class CountryRepositoryTest {
 
 
     @Test
-    fun `Should emit country list when network is available`() = runBlockingTest {
+    fun `Should emit country list when network is available`() = runTest {
         every { mockNetworkCheck.isConnected } returns true
         coEvery { mockLocalDataSource.getAllCountries() } returns emptyList()
         coEvery { mockRemoteDataSource.getAllCountries() } returns emptyList()
@@ -50,7 +47,7 @@ internal class CountryRepositoryTest {
 
     @Test
     fun `Should return exception when network is not available and local storage is empty`() =
-        runBlockingTest {
+        runTest {
             every { mockNetworkCheck.isConnected } returns false
             coEvery { mockLocalDataSource.getAllCountries() } returns emptyList()
 
@@ -59,7 +56,7 @@ internal class CountryRepositoryTest {
 
     @Test
     fun `Should return exception when network is available and error happens in API call`() =
-        runBlockingTest {
+        runTest {
             val exception = Exception()
             every { mockNetworkCheck.isConnected } returns true
             coEvery { mockLocalDataSource.getAllCountries() } returns emptyList()
@@ -70,14 +67,14 @@ internal class CountryRepositoryTest {
 
     @Test
     fun `Should return country list from local source`() =
-        runBlockingTest {
+        runTest {
             coEvery { mockLocalDataSource.getAllCountries() } returns mockCountryModelList
             assertThat(repository.fetchCountries()).isEqualTo(Either.Right(Unit))
         }
 
     @Test
     fun `Should observe country list as expected`() =
-        runBlockingTest {
+        runTest {
             coEvery { mockLocalDataSource.getAllCountries() } returns mockCountryModelList
             repository.observeCountries().test {
                 repository.fetchCountries()
@@ -88,7 +85,7 @@ internal class CountryRepositoryTest {
 
     @Test
     fun `Should get expected country by id`() =
-        runBlockingTest {
+        runTest {
             coEvery { mockLocalDataSource.getAllCountries() } returns mockCountryModelList
             repository.fetchCountries()
             assertEquals(repository.getCountry(mockCountryId), mockCountryModelList[0])
@@ -96,7 +93,7 @@ internal class CountryRepositoryTest {
 
     @Test
     fun `Should return country list by keyword search`() =
-        runBlockingTest {
+        runTest {
             coEvery { mockLocalDataSource.getCountriesBySearch(any()) } returns mockCountryModelList
             assertThat(repository.fetchCountries("any country")).isEqualTo(Either.Right(Unit))
         }
